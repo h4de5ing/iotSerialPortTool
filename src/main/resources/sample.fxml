@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:controller="ui.Controller"
+            prefHeight="300.0"
+            prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <TextArea fx:id="result" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <HBox BorderPane.alignment="CENTER" spacing="10">
+                            <children>
+                                <Label text="串口号"/>
+                                <ChoiceBox fx:id="com" prefWidth="150.0"/>
+                            </children>
+                        </HBox>
+                        <HBox BorderPane.alignment="CENTER" spacing="10">
+                            <children>
+                                <Label text="波特率"/>
+                                <ChoiceBox fx:id="bradrate" prefWidth="150.0"/>
+                            </children>
+                        </HBox>
+                        <Button fx:id="open" mnemonicParsing="false" text="打开串口"/>
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="300.0">
+                    <children>
+                        <HBox BorderPane.alignment="CENTER">
+                            <children>
+                                <CheckBox fx:id="hex" text="ASCII__HEX模式"/>
+                                <CheckBox fx:id="print" text="打印输出"/>
+                                <Button fx:id="clear" text="清空"/>
+                            </children>
+                        </HBox>
+                        <TextField fx:id="sendStr"/>
+                        <Button fx:id="send" mnemonicParsing="false" text="发送"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
