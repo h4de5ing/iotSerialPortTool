@@ -15,6 +15,10 @@ public class Main {
     static String server = "127.0.0.1:3001";
 
     public static void main(String[] args) throws Exception {
+        start(args);
+    }
+
+    public static void start(String[] args) throws Exception {
         try {
             mac = NetUtils.getLocalMac();
             System.out.println("MAC:" + mac);

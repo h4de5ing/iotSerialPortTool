@@ -87,7 +87,7 @@ public class Controller implements Initializable {
                             updateTv("接收字符串:" + new String(data));
                         }
                     }
-                    if (data.length > 5) {
+                    if (data.length == 22) {
                         byte[] temp = new byte[5];
                         System.arraycopy(data, 5, temp, 0, temp.length);
                         byte[] hum = new byte[5];
@@ -123,11 +123,14 @@ public class Controller implements Initializable {
     long currentTime = 0L;
 
     public void upload(String temp, String hub) {
-        //Temp:29.29,Hum:48.68   Temp:130.00,Hum:100.00   需要排除掉异常数据
+        //54656D703A3133302E30302C48756D3A3130302E30300D0A  异常数据 Temp:130.00,Hum:100.00
+        //54656D703A32372E35312C48756D3A35312E39380D0A 正常数据 Temp:29.29,Hum:48.68
         double tem = 131.0;
+        double hum = 100;
         try {
             tem = Double.parseDouble(temp);
-            if (System.currentTimeMillis() - currentTime >= 1000 && tem < 131) {//一秒以内的数据屏蔽掉
+            hum = Double.parseDouble(hub);
+            if (System.currentTimeMillis() - currentTime >= 1000 && tem < 131 && hum < 100) {//一秒以内的数据屏蔽掉
                 System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + "℃ 湿度:" + hub + "%");
                 currentTime = System.currentTimeMillis();
                 Map<String, String> param = new HashMap<>();
