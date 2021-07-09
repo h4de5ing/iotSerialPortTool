@@ -128,7 +128,7 @@ public class Controller implements Initializable {
         try {
             tem = Double.parseDouble(temp);
             if (System.currentTimeMillis() - currentTime >= 1000 && tem < 131) {//一秒以内的数据屏蔽掉
-                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + " 湿度:" + hub);
+                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + "℃ 湿度:" + hub + "%");
                 currentTime = System.currentTimeMillis();
                 Map<String, String> param = new HashMap<>();
                 param.put("mac", mac);
