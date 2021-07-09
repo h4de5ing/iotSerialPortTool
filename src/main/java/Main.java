@@ -33,12 +33,14 @@ public class Main {
         SerialPortManager.addListener(serialPort, () -> {
             byte[] data = SerialPortManager.readFromPort(serialPort);
             try {
-                //System.out.println(new String(data));
-                byte[] temp = new byte[5];
-                System.arraycopy(data, 5, temp, 0, temp.length);
-                byte[] hum = new byte[5];
-                System.arraycopy(data, 15, hum, 0, hum.length);
-                upload(new String(temp), new String(hum));
+                if (data.length == 22) {
+                    //System.out.println(new String(data));
+                    byte[] temp = new byte[5];
+                    System.arraycopy(data, 5, temp, 0, temp.length);
+                    byte[] hum = new byte[5];
+                    System.arraycopy(data, 15, hum, 0, hum.length);
+                    upload(new String(temp), new String(hum));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,14 +51,20 @@ public class Main {
 
     public static void upload(String temp, String hub) {
         if (System.currentTimeMillis() - currentTime >= 1000) {//一秒以内的数据屏蔽掉
+            double tem = 131.0;
+            double hum = 100;
             try {
-                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + " 湿度:" + hub);
-                currentTime = System.currentTimeMillis();
-                Map<String, String> param = new HashMap<>();
-                param.put("mac", mac);
-                param.put("temp", temp);
-                param.put("hum", hub);
-                HttpRequest.sendPost("http://" + server + "/insert", param, null);
+                tem = Double.parseDouble(temp);
+                hum = Double.parseDouble(hub);
+                if (System.currentTimeMillis() - currentTime >= 1000 && tem < 131 && hum < 100) {//一秒以内的数据屏蔽掉
+                    System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + " 湿度:" + hub);
+                    currentTime = System.currentTimeMillis();
+                    Map<String, String> param = new HashMap<>();
+                    param.put("mac", mac);
+                    param.put("temp", temp);
+                    param.put("hum", hub);
+                    HttpRequest.sendPost("http://" + server + "/insert", param, null);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
