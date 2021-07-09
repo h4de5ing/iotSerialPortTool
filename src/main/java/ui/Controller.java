@@ -122,15 +122,22 @@ public class Controller implements Initializable {
 
     long currentTime = 0L;
 
-    public void upload(String temp, String hub) throws Exception {
-        if (System.currentTimeMillis() - currentTime >= 1000) {//一秒以内的数据屏蔽掉
-            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + " 湿度:" + hub);
-            currentTime = System.currentTimeMillis();
-            Map<String, String> param = new HashMap<>();
-            param.put("mac", mac);
-            param.put("temp", temp);
-            param.put("hum", hub);
-            HttpRequest.sendPost("http://" + server + "/insert", param, null);
+    public void upload(String temp, String hub) {
+        //Temp:29.29,Hum:48.68   Temp:130.00,Hum:100.00   需要排除掉异常数据
+        double tem = 131.0;
+        try {
+            tem = Double.parseDouble(temp);
+            if (System.currentTimeMillis() - currentTime >= 1000 && tem < 131) {//一秒以内的数据屏蔽掉
+                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()) + " 温度:" + temp + " 湿度:" + hub);
+                currentTime = System.currentTimeMillis();
+                Map<String, String> param = new HashMap<>();
+                param.put("mac", mac);
+                param.put("temp", temp);
+                param.put("hum", hub);
+                HttpRequest.sendPost("http://" + server + "/insert", param, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
