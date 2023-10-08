@@ -31,6 +31,10 @@ public class Controller implements Initializable {
     @FXML
     CheckBox hex;
     @FXML
+    CheckBox rts;
+    @FXML
+    CheckBox cts;
+    @FXML
     CheckBox print;
     String mac = "";
     String server = "";
@@ -65,6 +69,8 @@ public class Controller implements Initializable {
                 updateTv("请选择串口号");
             }
         });
+        rts.setOnAction(event -> serialPort.setRTS(rts.isSelected()));
+        cts.setOnAction(event -> serialPort.setRTS(cts.isSelected()));
         send.setOnAction(event -> {
             String sendSt = sendStr.getText();
             if (!sendSt.isEmpty()) send(sendSt);

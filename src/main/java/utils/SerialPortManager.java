@@ -56,8 +56,7 @@ public class SerialPortManager {
                     // 数据位：8
                     // 停止位：1
                     // 校验位：None
-                    serialPort.setSerialPortParams(baudrate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-                            SerialPort.PARITY_NONE);
+                    serialPort.setSerialPortParams(baudrate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
                 } catch (UnsupportedCommOperationException e) {
                     e.printStackTrace();
                 }

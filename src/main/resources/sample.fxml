@@ -32,7 +32,9 @@
                     <children>
                         <HBox BorderPane.alignment="CENTER">
                             <children>
-                                <CheckBox fx:id="hex" text="ASCII__HEX模式"/>
+                                <CheckBox fx:id="hex" text="HEX"/>
+                                <CheckBox fx:id="rts" text="RTS"/>
+                                <CheckBox fx:id="cts" text="CTS"/>
                                 <CheckBox fx:id="print" text="打印输出"/>
                                 <Button fx:id="clear" text="清空"/>
                             </children>
